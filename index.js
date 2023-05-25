@@ -18,8 +18,8 @@ app.use(
 
 const USERS = [
   {
-    username: "admin",
-    password: "admin"
+    username: "user",
+    password: "user-123"
   }
 ];
 
