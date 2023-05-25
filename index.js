@@ -25,7 +25,7 @@ const USERS = [
 
 const REFRESH_TOKENS = [];
 
-const products = [
+const PRODUCTS = [
   {
     id: 1,
     name: "Camera 1",
@@ -99,7 +99,15 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/products", authenticateToken, (req, res) => {
-  res.json(products);
+  res.json(PRODUCTS);
+});
+
+app.get("/products/:id", authenticateToken, (req, res) => {
+  const product = PRODUCTS.find((product) => product.id === parseInt(req.params.id));
+
+  if (!product) return res.status(404).send("Product not found");
+
+  res.json(product);
 });
 
 app.post("/token", (req, res) => {
