@@ -100,14 +100,6 @@ app.get("/products", authenticateToken, (req, res) => {
   res.json(PRODUCTS);
 });
 
-app.get("/products/:id", authenticateToken, (req, res) => {
-  const product = PRODUCTS.find((product) => product.id === parseInt(req.params.id));
-
-  if (!product) return res.status(404).send("Product not found");
-
-  res.json(product);
-});
-
 app.post("/token", (req, res) => {
   const refreshToken = req.body.token;
   if (refreshToken == null) return res.sendStatus(401);
