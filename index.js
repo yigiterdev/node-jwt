@@ -112,11 +112,6 @@ app.post("/token", (req, res) => {
   });
 });
 
-app.delete("/logout", (req, res) => {
-  REFRESH_TOKENS = REFRESH_TOKENS.filter((token) => token !== req.body.token);
-  res.sendStatus(204);
-});
-
 function authenticateToken(req, res, next) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
