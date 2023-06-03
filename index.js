@@ -92,7 +92,6 @@ app.post("/login", (req, res) => {
 
   const accessToken = generateAccessToken(authUser);
   const refreshToken = jwt.sign(authUser, process.env.REFRESH_TOKEN_SECRET);
-  REFRESH_TOKENS.push(refreshToken);
 
   res.json({username, accessToken: accessToken, refreshToken: refreshToken});
 });
@@ -113,11 +112,10 @@ app.post("/token", (req, res) => {
   const refreshToken = req.body.token;
   if (refreshToken == null) return res.sendStatus(401);
 
-  if (!REFRESH_TOKENS.includes(refreshToken)) return res.sendStatus(403);
-
   jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
     if (err) return res.sendStatus(403);
     const accessToken = generateAccessToken(user);
+
     res.json({accessToken: accessToken});
   });
 });
